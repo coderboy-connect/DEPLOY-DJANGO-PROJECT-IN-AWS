@@ -94,7 +94,7 @@ Regardless of which version of Python you are using, when the virtual environmen
 ````
 pip install django gunicorn psycopg2
 ````
-#You should now have all of the software needed to start a Django project.
+# You should now have all of the software needed to start a Django project.
 
 Create and Configure a New Django Project
 With our Python components installed, we can create the actual Django project files.
