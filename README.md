@@ -51,11 +51,8 @@ ALLOWED_HOSTS = ['*']
  <p>
   step 8 : now you have to type the comments that is listed below one by one .
   <ol>
-   Create a Python Virtual Environment for your Project
-Now that we have our database, we can begin getting the rest of our project requirements ready. We will be installing our Python requirements within a virtual environment for easier management.
-
-To do this, we first need access to the virtualenv command. We can install this with pip.
-This commands will work only if you are using pythoon 3. you can check that by typing 'python --version' in your cmd.just make sure the version starts with 3 . ex: Python 3.10.5
+  
+THe following commands will work only if you are using pythoon 3. you can check your python version by typing 'python --version' in your cmd. just make sure that the version starts with 3 . ex: Python 3.10.5
    
 enter this comment to get the latest pip features
    
@@ -74,6 +71,7 @@ mkdir ~/myproject
 cd ~/myproject
 `````
 Within the project directory, create a Python virtual environment by typing:
+you can choose the name of the environment , i am using the the name as myprojectenv
 `````
 virtualenv myprojectenv
    
@@ -81,6 +79,7 @@ virtualenv myprojectenv
 This will create a directory called myprojectenv within your myproject directory. Inside, it will install a local version of Python and a local version of pip. We can use this to install and configure an isolated Python environment for our project.
 
 Before we install our project’s Python requirements, we need to activate the virtual environment. You can do that by typing:
+dont forget to use your environment name in the place of myprojectenv.
 `````
 source myprojectenv/bin/activate
 `````
@@ -95,7 +94,7 @@ Regardless of which version of Python you are using, when the virtual environmen
 ````
 pip install django gunicorn psycopg2
 ````
-You should now have all of the software needed to start a Django project.
+#You should now have all of the software needed to start a Django project.
 
 Create and Configure a New Django Project
 With our Python components installed, we can create the actual Django project files.
