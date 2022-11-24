@@ -16,7 +16,7 @@ Today we are going to see how to deploy our django project in aws.
     step 3 : go to your project settings file and change the things shown below
     
     
-| Rank | Languages |
+| VARIABLES | VALUES |
 |-----:|-----------|
 |     1| Javascript|
 |     2| Python    |
