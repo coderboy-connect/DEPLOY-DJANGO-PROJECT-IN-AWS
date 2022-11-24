@@ -55,21 +55,20 @@ ALLOWED_HOSTS = ['*']
 Now that we have our database, we can begin getting the rest of our project requirements ready. We will be installing our Python requirements within a virtual environment for easier management.
 
 To do this, we first need access to the virtualenv command. We can install this with pip.
-
-If you are using Python 2, upgrade pip and install the package by typing:
-
-`````
-
-sudo -H pip install --upgrade pip
-sudo -H pip install virtualenv
-`````
-   If you are using Python 3, upgrade pip and install the package by typing:
-`````
-
+This commands will work only if you are using pythoon 3. you can check that by typing 'python --version' in your cmd.just make sure the version starts with 3 . ex: Python 3.10.5
+   
+enter this comment to get the latest pip features
+   
+````
 sudo -H pip3 install --upgrade pip
+   
+````
+Install the virtual environment for your project
+````
 sudo -H pip3 install virtualenv
 `````
 With virtualenv installed, we can start forming our project. Create and move into a directory where we can keep our project files:
+you can use your project name instead of 'myproject' if you want.
 `````
 mkdir ~/myproject
 cd ~/myproject
