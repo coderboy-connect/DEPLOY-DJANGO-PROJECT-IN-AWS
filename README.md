@@ -122,7 +122,7 @@ Now, we can migrate the initial database schema to our mysql database using the 
 ~/myproject/manage.py migrate
 ````
 Create an administrative user if you are using inbuild django user. Else continue....
-````
+
 We can collect all of the static content into the directory location we configured in our project settings by typing:
 ````
 ~/myproject/manage.py collectstatic
