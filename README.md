@@ -15,13 +15,13 @@ Today we are going to see how to deploy our django project in aws.
    <p>
     step 3 : go to your project settings file and change the things shown below
     
-    
-| VARIABLES | VALUES |
-|-----:|-----------|
-|     1| Javascript|
-|     2| Python    |
-|     3| SQL       |
-    
+ALLOWED_HOSTS = ['*']
+    Some basic Git commands are:
+```
+git status
+git add
+git commit
+```
   </p>
 </div>
 </body>
