@@ -23,6 +23,14 @@ Today we are going to see how to deploy our django project in aws.
 ALLOWED_HOSTS = ['*']
 ...
 ...
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'project_widecity',
+        'USER':'root',
+        'PASSWORD':'1234'
+    }
+}
 ```
   </p>
  <p>
@@ -99,12 +107,7 @@ pip install django gunicorn psycopg2
 Create and Configure a New Django Project
 With our Python components installed, we can create the actual Django project files.
 
-Create the Django Project
-Since we already have a project directory, we will tell Django to install the files here. It will create a second level directory with the actual code, which is normal, and place a management script in this directory. The key to this is that we are defining the directory explicitly instead of allowing Django to make decisions relative to our current directory:
-
-````
-django-admin.py startproject myproject ~/myproject
-````
+I believe that you have your project in your github. if not then just do that before we continue. or else lets go...
 At this point, your project directory (~/myproject in our case) should have the following content:
 
 ~/myproject/manage.py: A Django project management script.
@@ -112,7 +115,7 @@ At this point, your project directory (~/myproject in our case) should have the 
 ~/myproject/myprojectenv/: The virtual environment directory we created earlier.
    
 Complete Initial Project Setup
-Now, we can migrate the initial database schema to our PostgreSQL database using the management script:
+Now, we can migrate the initial database schema to our mysql database using the management script:
 
 ````
 ~/myproject/manage.py makemigrations
