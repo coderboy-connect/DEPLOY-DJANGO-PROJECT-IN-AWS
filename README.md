@@ -18,11 +18,20 @@ Today we are going to see how to deploy our django project in aws.
 
 
 ```
+...
+...
 ALLOWED_HOSTS = ['*']
 ...
 ...
 ```
   </p>
+ <p>
+ (i hope your satic and media files are working perfectly fine  in your local host, so i am not going to say about handling them)
+  <p>
+   
+   <p>
+    step 3 : now you create an account in your github account and push all your project file to a repository. you can use either github desktop or sourcetree or git bash , etc to complete this task.
+ </P>
 </div>
 </body>
 </html>
