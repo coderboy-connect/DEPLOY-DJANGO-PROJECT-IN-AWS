@@ -51,6 +51,10 @@ ALLOWED_HOSTS = ['*']
  <p>
   step 8 : now you have to type the comments that is listed below one by one .
   <ol>
+   
+`````
+   hello
+`````
  </ol>
   </P>
  </div>
