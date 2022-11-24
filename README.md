@@ -36,6 +36,23 @@ ALLOWED_HOSTS = ['*']
  <p>
   use this link to go to the aws console <a href='https://aws.amazon.com/'>AWS(coderboy)</a>
  </p>
-</div>
+ <p>
+  step 4 : now you have to create an aws account as a root user using your valid information. <a href=''>Click me</a> to know about creating an Aws account in Malayalam.
+ </p>
+ <p>
+  step 5 : after creating the aws account you will be redirected to the aws console. now you have to search for ec2 on the search bar. 
+ </P>
+ <p>
+ step 6 : now you have to buy an instance so that you can host your site in it.  <a href=''>Click me</a> If you want to see how step 5 and step 6 are done.
+ </p>
+ <p>
+  step 7 : Now you have to establish a connection with your instance and make sure that your instance is upto date , follow this <a href=''>link</a> to see that.
+ </p>
+ <p>
+  step 8 : now you have to type the comments that is listed below one by one .
+  <ol>
+ </ol>
+  </P>
+ </div>
 </body>
 </html>
