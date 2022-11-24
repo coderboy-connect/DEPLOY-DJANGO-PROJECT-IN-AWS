@@ -192,6 +192,7 @@ sudo systemctl enable gunicorn
 ````
 sudo systemctl daemon-reload
 ````
+````
 sudo systemctl restart gunicorn
 ````
 Make sure you troubleshoot any of the above issues before continuing.
