@@ -7,10 +7,16 @@ Today we are going to see how to deploy our django project in aws.
 <div>
  
   <p>
-    step 1 : make sure your project in working well when you are running it in a local server
+    step 1 : make sure your project is working well when you are running it in a local server
   </p>
   <p>
-    step 1 : make sure your project in working well when you are running it in a local server
+    step 2 : create a file called requirement.txt by typing the command 'pip freeze > requirement.txt' in your terminal. make sure you are in the project folder.
+  </p>
+   <p>
+    step 3 : go to your project settings file and change the things shown below
+    <ol>
+     <li>`ALLOWED_HOST`</li>
+    </ol>
   </p>
 </div>
 </body>
