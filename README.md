@@ -92,8 +92,10 @@ With your virtual environment active, install Django, Gunicorn, and the psycopg2
 Note
 
 Regardless of which version of Python you are using, when the virtual environment is activated, you should use the pip command (not pip3).
-
+   
+````
 pip install django gunicorn psycopg2
+````
 You should now have all of the software needed to start a Django project.
 
 Create and Configure a New Django Project
@@ -102,78 +104,44 @@ With our Python components installed, we can create the actual Django project fi
 Create the Django Project
 Since we already have a project directory, we will tell Django to install the files here. It will create a second level directory with the actual code, which is normal, and place a management script in this directory. The key to this is that we are defining the directory explicitly instead of allowing Django to make decisions relative to our current directory:
 
+````
 django-admin.py startproject myproject ~/myproject
+````
 At this point, your project directory (~/myproject in our case) should have the following content:
 
 ~/myproject/manage.py: A Django project management script.
 ~/myproject/myproject/: The Django project package. This should contain the __init__.py, settings.py, urls.py, and wsgi.py files.
 ~/myproject/myprojectenv/: The virtual environment directory we created earlier.
-Adjust the Project Settings
-The first thing we should do with our newly created project files is adjust the settings. Open the settings file in your text editor:
-
-nano ~/myproject/myproject/settings.py
-Start by locating the ALLOWED_HOSTS directive. This defines a list of the server’s addresses or domain names may be used to connect to the Django instance. Any incoming requests with a Host header that is not in this list will raise an exception. Django requires that you set this to prevent a certain class of security vulnerability.
-
-In the square brackets, list the IP addresses or domain names that are associated with your Django server. Each item should be listed in quotations with entries separated by a comma. If you wish requests for an entire domain and any subdomains, prepend a period to the beginning of the entry. In the snippet below, there are a few commented out examples used to demonstrate:
-
-~/myproject/myproject/settings.py
-. . .
-# The simplest case: just add the domain name(s) and IP addresses of your Django server
-# ALLOWED_HOSTS = [ 'example.com', '203.0.113.5']
-# To respond to 'example.com' and any subdomains, start the domain with a dot
-# ALLOWED_HOSTS = ['.example.com', '203.0.113.5']
-ALLOWED_HOSTS = ['your_server_domain_or_IP', 'second_domain_or_IP', . . .]
-Next, find the section that configures database access. It will start with DATABASES. The configuration in the file is for a SQLite database. We already created a PostgreSQL database for our project, so we need to adjust the settings.
-
-Change the settings with your PostgreSQL database information. We tell Django to use the psycopg2 adaptor we installed with pip. We need to give the database name, the database username, the database user’s password, and then specify that the database is located on the local computer. You can leave the PORT setting as an empty string:
-
-~/myproject/myproject/settings.py
-. . .
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'myproject',
-        'USER': 'myprojectuser',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
-
-. . .
-Next, move down to the bottom of the file and add a setting indicating where the static files should be placed. This is necessary so that Nginx can handle requests for these items. The following line tells Django to place them in a directory called static in the base project directory:
-
-~/myproject/myproject/settings.py
-. . .
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-Save and close the file when you are finished.
-
+   
 Complete Initial Project Setup
 Now, we can migrate the initial database schema to our PostgreSQL database using the management script:
 
+````
 ~/myproject/manage.py makemigrations
 ~/myproject/manage.py migrate
+````
 Create an administrative user for the project by typing:
-
+````
 ~/myproject/manage.py createsuperuser
+````
 You will have to select a username, provide an email address, and choose and confirm a password.
 
 We can collect all of the static content into the directory location we configured by typing:
-
+````
 ~/myproject/manage.py collectstatic
+````
 You will have to confirm the operation. The static files will then be placed in a directory called static within your project directory.
 
 If you followed the initial server setup guide, you should have a UFW firewall protecting your server. In order to test the development server, we’ll have to allow access to the port we’ll be using.
 
 Create an exception for port 8000 by typing:
-
+````
 sudo ufw allow 8000
+````
 Finally, you can test our your project by starting up the Django development server with this command:
-
+````
 ~/myproject/manage.py runserver 0.0.0.0:8000
+````
 In your web browser, visit your server’s domain name or IP address followed by :8000:
 
 http://server_domain_or_IP:8000
@@ -194,8 +162,10 @@ When you are finished exploring, hit CTRL-C in the terminal window to shut down 
 Testing Gunicorn’s Ability to Serve the Project
 The last thing we want to do before leaving our virtual environment is test Gunicorn to make sure that it can serve the application. We can do this by entering our project directory and using gunicorn to load the project’s WSGI module:
 
+````
 cd ~/myproject
 gunicorn --bind 0.0.0.0:8000 myproject.wsgi
+````
 This will start Gunicorn on the same interface that the Django development server was running on. You can go back and test the app again.
 
 Note: The admin interface will not have any of the styling applied since Gunicorn does not know about the static CSS content responsible for this.
@@ -205,26 +175,19 @@ We passed Gunicorn a module by specifying the relative directory path to Django�
 When you are finished testing, hit CTRL-C in the terminal window to stop Gunicorn.
 
 We’re now finished configuring our Django application. We can back out of our virtual environment by typing:
-
+````
 deactivate
+````
 The virtual environment indicator in your prompt will be removed.
 
 Create a Gunicorn systemd Service File
 We have tested that Gunicorn can interact with our Django application, but we should implement a more robust way of starting and stopping the application server. To accomplish this, we’ll make a systemd service file.
 
 Create and open a systemd service file for Gunicorn with sudo privileges in your text editor:
-
+````
 sudo nano /etc/systemd/system/gunicorn.service
-Start with the [Unit] section, which is used to specify metadata and dependencies. We’ll put a description of our service here and tell the init system to only start this after the networking target has been reached:
-
-/etc/systemd/system/gunicorn.service
-[Unit]
-Description=gunicorn daemon
-After=network.target
-Next, we’ll open up the [Service] section. We’ll specify the user and group that we want to process to run under. We will give our regular user account ownership of the process since it owns all of the relevant files. We’ll give group ownership to the www-data group so that Nginx can communicate easily with Gunicorn.
-
-We’ll then map out the working directory and specify the command to use to start the service. In this case, we’ll have to specify the full path to the Gunicorn executable, which is installed within our virtual environment. We will bind it to a Unix socket within the project directory since Nginx is installed on the same computer. This is safer and faster than using a network port. We can also specify any optional Gunicorn tweaks here. For example, we specified 3 worker processes in this case:
-
+````
+````
 /etc/systemd/system/gunicorn.service
 [Unit]
 Description=gunicorn daemon
@@ -235,9 +198,14 @@ User=sammy
 Group=www-data
 WorkingDirectory=/home/sammy/myproject
 ExecStart=/home/sammy/myproject/myprojectenv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/sammy/myproject/myproject.sock myproject.wsgi:application
+   
+````
 Finally, we’ll add an [Install] section. This will tell systemd what to link this service to if we enable it to start at boot. We want this service to start when the regular multi-user system is up and running:
-
+````
 /etc/systemd/system/gunicorn.service
+````
+   
+````
 [Unit]
 Description=gunicorn daemon
 After=network.target
@@ -250,6 +218,8 @@ ExecStart=/home/sammy/myproject/myprojectenv/bin/gunicorn --access-logfile - --w
 
 [Install]
 WantedBy=multi-user.target
+````
+   
 With that, our systemd service file is complete. Save and close it now.
 
 We can now start the Gunicorn service we created and enable it so that it starts at boot:
@@ -264,7 +234,9 @@ Check the status of the process to find out whether it was able to start:
 sudo systemctl status gunicorn
 Next, check for the existence of the myproject.sock file within your project directory:
 
+````
 ls /home/sammy/myproject
+````
 Output
 manage.py  myproject  myprojectenv  myproject.sock  static
 If the systemctl status command indicated that an error occurred or if you do not find the myproject.sock file in the directory, it’s an indication that Gunicorn was not able to start correctly. Check the Gunicorn process logs by typing:
