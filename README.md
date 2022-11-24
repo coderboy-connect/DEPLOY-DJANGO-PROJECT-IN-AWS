@@ -38,7 +38,7 @@ DATABASES = {
   <p>
    
    <p>
-    step 3 : now you create an account in github and make a repo then push all your project file into that repository. you can use either github desktop or sourcetree or git bash , etc to complete this task.
+    step 3 : now you create an account in github and make a repo then push all your project file into that repository. you can use either github desktop or sourcetree or git bash , etc to complete this task. you can watch <a href ='' > this video </a> if you want to know about that.
  </P>
  <h3>Getting an account in aws</h3>
  <p>
