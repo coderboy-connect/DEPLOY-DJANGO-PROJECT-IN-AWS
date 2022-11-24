@@ -32,6 +32,10 @@ ALLOWED_HOSTS = ['*']
    <p>
     step 3 : now you create an account in github and make a repo then push all your project file into that repository. you can use either github desktop or sourcetree or git bash , etc to complete this task.
  </P>
+ <h3>Getting an account in aws</h3>
+ <p>
+  use this link to go to the aws console <a href='https://aws.amazon.com/'>AWS(coderboy)</a>
+ </p>
 </div>
 </body>
 </html>
