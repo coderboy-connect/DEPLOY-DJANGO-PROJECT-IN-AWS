@@ -244,6 +244,8 @@ sudo ufw delete allow 8000
 ````
 sudo ufw allow 'Nginx Full'
 `````
+haavu! atlast you did it. Now Please check your website on your public ip. you will get that ip from the aws ec2 dashboard.
+
  </ol>
   </P>
  </div>
